@@ -108,3 +108,14 @@ body {
 .animate-wave {
   animation: waveShift 3s linear infinite;
 }
+
+/* Scroll reading progress bar */
+.scroll-progress-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #06b6d4, #8b5cf6, #f59e0b);
+  z-index: 50;
+  transition: width 0.1s ease-out;
+}

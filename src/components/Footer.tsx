@@ -45,7 +45,7 @@ export function Footer({ companion }: FooterProps) {
   ];
 
   return (
-    <footer id="contact" className="relative border-t border-white/10 bg-[#05070a] pt-16 pb-12 text-slate-400">
+    <footer id="contact" data-chapter="contact" className="relative border-t border-white/10 bg-[#05070a] pt-16 pb-12 text-slate-400">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Top Grid: Info & Platforms */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">

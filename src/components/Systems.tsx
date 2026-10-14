@@ -63,7 +63,7 @@ export function Systems({ companion }: SystemsProps) {
   ];
 
   return (
-    <section id="systems" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+    <section id="systems" data-chapter="systems" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
       {/* Header */}
       <div className="space-y-3 mb-16 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400">

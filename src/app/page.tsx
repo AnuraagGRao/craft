@@ -10,11 +10,23 @@ import { CaseStudies } from "@/components/CaseStudies";
 import { Systems } from "@/components/Systems";
 import { Sanctuary } from "@/components/Sanctuary";
 import { Footer } from "@/components/Footer";
+import { Stage } from "@/components/Stage";
+import { CompanionGuide } from "@/components/CompanionGuide";
 
 export default function Home() {
   const [selectedCompanion, setSelectedCompanion] = useState<Companion>(COMPANIONS.koji);
   const [isPreloading, setIsPreloading] = useState(true);
   const [isDark, setIsDark] = useState(true);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  useEffect(() => {
+    const onScroll = () => {
+      const max = Math.max(1, document.body.scrollHeight - window.innerHeight);
+      setScrollProgress(Math.min(100, Math.round((window.scrollY / max) * 100)));
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   // Synchronize companion changes with local storage if desired
   const handleSelectCompanion = (c: Companion) => {
@@ -37,6 +49,9 @@ export default function Home() {
 
   return (
     <>
+      {/* Top Reading Progress Bar */}
+      <div className="scroll-progress-line" style={{ width: `${scrollProgress}%` }} />
+
       {/* Telemetry Tracking Script */}
       <Script
         src="https://analytics.anuraaggrao.com/tracker.js"
@@ -61,8 +76,10 @@ export default function Home() {
         onToggleTheme={handleToggleTheme}
       />
 
-      {/* Main Studio Content */}
-      <main className="min-h-screen bg-ambient-grid flex flex-col justify-between selection:bg-cyan-500/30 selection:text-cyan-200">
+      {/* Main Studio Content with WebGL 3D Flight Backdrop */}
+      <Stage companion={selectedCompanion} />
+
+      <main className="min-h-screen bg-transparent flex flex-col justify-between selection:bg-cyan-500/30 selection:text-cyan-200 relative z-10">
         <Hero
           companion={selectedCompanion}
           onSelectCompanion={handleSelectCompanion}
@@ -76,6 +93,12 @@ export default function Home() {
 
         <Footer companion={selectedCompanion} />
       </main>
+
+      {/* Floating Scroll Companion HUD */}
+      <CompanionGuide
+        companion={selectedCompanion}
+        onSelectCompanion={handleSelectCompanion}
+      />
     </>
   );
 }

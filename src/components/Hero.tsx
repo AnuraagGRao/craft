@@ -23,7 +23,7 @@ export default function Hero({ companion, onSelectCompanion }: HeroProps) {
   const currentSpeech = companion.speechBubbles[speechIndex % companion.speechBubbles.length];
 
   return (
-    <section className="relative w-full min-h-[92vh] pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-between overflow-hidden">
+    <section data-chapter="hero" className="relative w-full min-h-[92vh] pt-28 pb-16 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto flex flex-col justify-between overflow-hidden">
       {/* Background ambient lighting */}
       <div 
         className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[650px] h-[350px] blur-3xl pointer-events-none -z-10 opacity-30 transition-all duration-700 rounded-full"
