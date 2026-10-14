@@ -20,6 +20,15 @@ export function CompanionGuide({ companion, onSelectCompanion }: CompanionGuideP
   // Chapter-specific commentary per mascot
   const getChapterDialogue = (chap: string) => {
     switch (chap) {
+      case "companions":
+        if (companion.id === "mochi") {
+          return "Welcome to the crew roster. Pick whoever matches your rhythm today.";
+        }
+        if (companion.id === "kai") {
+          return "Character showcase! Equip me if you want maximum FPS and neon sound waves!";
+        }
+        return "Welcome to the crew roster. Each of us was trained on distinct edge systems.";
+
       case "case-studies":
         if (companion.id === "mochi") {
           return "Take your time inspecting each system. Uptime is peaceful and steady.";

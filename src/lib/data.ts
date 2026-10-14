@@ -10,10 +10,14 @@ export interface Companion {
   vibe: string;
   speechBubbles: string[];
   bio: string;
+  role: string;
+  gear: string;
+  mantra: string;
   stats: {
     latency: string;
     focus: string;
     vibeRating: string;
+    renderBudget: string;
   };
 }
 
@@ -29,6 +33,9 @@ export const COMPANIONS: Record<string, Companion> = {
     accentHex: "#06b6d4",
     vibe: "Warm techwear hoodie, hot bamboo latte, zero unhandled errors.",
     bio: "Koji ensures distributed systems maintain sub-15ms edge latency while keeping the workspace serene and cozy.",
+    role: "Edge Routing, Web Crypto API Isolates & Zero-Server Cryptography",
+    gear: "Tactical Matte Black Techwear Hoodie + Cybernetic Bamboo Latte Tumbler",
+    mantra: "Deterministic systems. Zero cold starts. Hot matcha.",
     speechBubbles: [
       "Low latency, fresh matcha, zero drama. Welcome to Craft Studio!",
       "I keep Cloudflare edge routes running cool even under heavy traffic.",
@@ -39,6 +46,7 @@ export const COMPANIONS: Record<string, Companion> = {
       latency: "12ms",
       focus: "100%",
       vibeRating: "99.999%",
+      renderBudget: "Sub-15ms",
     },
   },
   mochi: {
@@ -52,6 +60,9 @@ export const COMPANIONS: Record<string, Companion> = {
     accentHex: "#f59e0b",
     vibe: "Unbothered, onsen hot-spring calm, glowing yuzu on head.",
     bio: "Mochi believes when an entire cloud availability zone drops, you take a deep breath, trigger failover, and sip tea.",
+    role: "Database Connection Pooling, Multi-Region SLA Sentinel & Observability",
+    gear: "Hand-Knit Earthy Knitwear + Luminescent Balancing Onsen Yuzu",
+    mantra: "When an entire availability zone drops, trigger failover and sip tea.",
     speechBubbles: [
       "Breathe in. Deploy to edge. Breathe out. Uptime is peaceful.",
       "The citrus on my head balances our database connection pools.",
@@ -62,6 +73,7 @@ export const COMPANIONS: Record<string, Companion> = {
       latency: "14ms",
       focus: "Infinite",
       vibeRating: "100%",
+      renderBudget: "Rock Solid",
     },
   },
   kai: {
@@ -75,6 +87,9 @@ export const COMPANIONS: Record<string, Companion> = {
     accentHex: "#a855f7",
     vibe: "Neon headset, retro console, 60 FPS frame-pacing wizard.",
     bio: "Kai lives for 16.6ms render loops, responsive canvas shaders, and playful micro-interactions that make interfaces unforgettable.",
+    role: "Web Audio DSP Synthesis, Canvas 2D/WebGL Loops & Mobile Touch Physics",
+    gear: "RGB Streamer Headset + Cyber Deck Retro Handheld Console",
+    mantra: "16.6ms frame budget locked. Lag is a design bug.",
     speechBubbles: [
       "60 FPS locked, neon glowing, let's build something epic!",
       "Head down to Player 1 Sanctuary and challenge my high score!",
@@ -85,6 +100,7 @@ export const COMPANIONS: Record<string, Companion> = {
       latency: "8ms",
       focus: "Overclocked",
       vibeRating: "MAX",
+      renderBudget: "16.6ms (60 FPS)",
     },
   },
 };

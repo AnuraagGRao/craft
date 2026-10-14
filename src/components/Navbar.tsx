@@ -48,6 +48,13 @@ export function Navbar({
 
         {/* Center: Primary Navigation Links */}
         <nav className="glass-dock pointer-events-auto h-12 px-2 rounded-full hidden md:flex items-center gap-1">
+          <Link
+            href="/companions"
+            className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 flex items-center gap-1.5 transition-all"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Companions Lab</span>
+          </Link>
           <a
             href="#case-studies"
             className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider text-slate-400 hover:text-white hover:bg-white/5 transition-all"

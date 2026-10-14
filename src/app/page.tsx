@@ -12,6 +12,7 @@ import { Sanctuary } from "@/components/Sanctuary";
 import { Footer } from "@/components/Footer";
 import { Stage } from "@/components/Stage";
 import { CompanionGuide } from "@/components/CompanionGuide";
+import { MascotShowcase } from "@/components/MascotShowcase";
 
 export default function Home() {
   const [selectedCompanion, setSelectedCompanion] = useState<Companion>(COMPANIONS.koji);
@@ -82,6 +83,11 @@ export default function Home() {
       <main className="min-h-screen bg-transparent flex flex-col justify-between selection:bg-cyan-500/30 selection:text-cyan-200 relative z-10">
         <Hero
           companion={selectedCompanion}
+          onSelectCompanion={handleSelectCompanion}
+        />
+
+        <MascotShowcase
+          activeCompanion={selectedCompanion}
           onSelectCompanion={handleSelectCompanion}
         />
 

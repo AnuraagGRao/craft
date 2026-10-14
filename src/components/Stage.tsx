@@ -142,10 +142,11 @@ export function Stage({ companion }: StageProps) {
       // Camera flight stops per chapter
       const stops: Record<string, THREE.Vector3> = {
         hero: v(0, 0, 10),
-        "case-studies": v(0, 0.4, -20),
-        systems: v(0, 0.2, -50),
-        sanctuary: v(0, 0, -80),
-        contact: v(0, -0.2, -100),
+        companions: v(0, 0.6, -12),
+        "case-studies": v(0, 0.4, -30),
+        systems: v(0, 0.2, -60),
+        sanctuary: v(0, 0, -90),
+        contact: v(0, -0.2, -115),
       };
 
       path = chapterEls.map((el) => {
