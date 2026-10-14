@@ -145,6 +145,7 @@ export function Stage({ companion }: StageProps) {
         companions: v(0, 0.6, -12),
         "case-studies": v(0, 0.4, -30),
         systems: v(0, 0.2, -60),
+        arcade: v(0, 0, -90),
         sanctuary: v(0, 0, -90),
         contact: v(0, -0.2, -115),
       };

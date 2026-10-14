@@ -181,19 +181,19 @@ export function Sanctuary({ companion }: SanctuaryProps) {
   const config = getTokenConfig();
 
   return (
-    <section id="sanctuary" data-chapter="sanctuary" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
+    <section id="arcade" data-chapter="arcade" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-500/10 border border-violet-500/20 text-xs font-mono text-violet-400">
             <Gamepad2 className="w-3.5 h-3.5" />
-            <span>PLAYER 1 SANCTUARY · INTERACTIVE ARCADE</span>
+            <span>INTERACTIVE EXPERIMENTATION · TACTILE ARCADE</span>
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white uppercase">
-            ARCADE <span className="text-violet-400">STAGE</span>
+            TACTILE <span className="text-violet-400">ARCADE</span>
           </h2>
           <p className="text-sm sm:text-base text-slate-400 font-mono max-w-2xl leading-relaxed">
-            Take a breather from systems analysis. Catch falling cyber tokens with {companion.name} to rack up combos and beat the high score.
+            Proof of 60 FPS browser responsiveness. Catch falling kinetic tokens with {companion.name} to build combos and trigger real-time Web Audio synthesis.
           </p>
         </div>
 

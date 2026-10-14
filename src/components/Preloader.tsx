@@ -61,7 +61,7 @@ export function Preloader({ onComplete, companionName, companionEmoji }: Preload
             Awakening {companionName}
           </h2>
           <p className="text-xs sm:text-sm text-slate-400 font-mono">
-            Initializing edge systems and interactive sanctuary…
+            Initializing edge systems and interactive arcade lab…
           </p>
         </div>
       </div>

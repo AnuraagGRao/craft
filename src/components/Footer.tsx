@@ -53,7 +53,7 @@ export function Footer({ companion }: FooterProps) {
           <div className="md:col-span-5 space-y-4">
             <div className="flex items-center gap-2">
               <span className="text-xl font-extrabold text-white tracking-tight">
-                ANURAAG G. RAO
+                ANURAAG G RAO
               </span>
               <span className="text-cyan-400 font-mono text-sm">/ craft</span>
             </div>
@@ -126,7 +126,7 @@ export function Footer({ companion }: FooterProps) {
             <span>{companion.emoji}</span>
             <span>Accompanied by <strong className="text-slate-300">{companion.name}</strong> ({companion.species})</span>
             <span>·</span>
-            <span>© 2026 Anuraag G. Rao</span>
+            <span>© 2026 Anuraag G Rao</span>
           </div>
 
           <button

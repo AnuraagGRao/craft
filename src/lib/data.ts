@@ -92,7 +92,7 @@ export const COMPANIONS: Record<string, Companion> = {
     mantra: "16.6ms frame budget locked. Lag is a design bug.",
     speechBubbles: [
       "60 FPS locked, neon glowing, let's build something epic!",
-      "Head down to Player 1 Sanctuary and challenge my high score!",
+      "Head down to the Tactile Arcade and challenge my high score!",
       "Lag is the enemy. Fluid tactile animations are the future.",
       "Have you tried the Regex Playground and Crypto Studio in utils yet?",
     ],

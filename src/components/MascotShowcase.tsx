@@ -292,39 +292,39 @@ export function MascotShowcase({
         </div>
       </div>
 
-      {/* Origin & Generative Pipeline Story Strip (Inspired by EW's Case Study 01) */}
+      {/* Architecture & Identity Atelier Strip */}
       <div className="mt-20 pt-10 border-t border-white/[0.08] space-y-6">
         <div className="text-center space-y-1">
           <span className="text-[11px] font-mono uppercase tracking-[0.2em] text-cyan-400 font-semibold">
-            BEHIND THE SCENES
+            ARCHITECTURE &amp; IDENTITY ATELIER
           </span>
           <h4 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
-            How The Cute Animals Came To Life
+            Why Animal Companions Over Corporate Headshots
           </h4>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-            <div className="text-xs font-mono text-cyan-400 font-bold">01 · CONCEPTION</div>
-            <h5 className="text-base font-bold text-white">Streetwear Meets Onsen Zen</h5>
+            <div className="text-xs font-mono text-cyan-400 font-bold">01 · OPERATIONAL ROLES</div>
+            <h5 className="text-base font-bold text-white">Distinct Engineering Doctrines</h5>
             <p className="text-xs text-slate-400 leading-relaxed font-sans">
-              Moving beyond conventional human avatars, we crafted three iconic animal archetypes: a hoodie-wearing cyber panda, an unbothered capybara balancing hot-spring citrus, and a neon-lit kitsune gamer.
+              Rather than generic corporate portraits, three iconic animal operators anchor the ecosystem: a systems architect cyber panda, an unbothered SRE capybara, and a high-FPS arcade kitsune.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-            <div className="text-xs font-mono text-cyan-400 font-bold">02 · VOLUMETRICS</div>
-            <h5 className="text-base font-bold text-white">Overwatch &amp; Pixar Shader Depth</h5>
+            <div className="text-xs font-mono text-violet-400 font-bold">02 · TACTILE FOIL &amp; LIGHTING</div>
+            <h5 className="text-base font-bold text-white">Interactive Pointer Specular</h5>
             <p className="text-xs text-slate-400 leading-relaxed font-sans">
-              Rendered with warm ambient occlusion, cinematic rim lights, and tactile cloth texturing. The holographic foil card reflects pointer angles for authentic physical presence.
+              Engineered with cinematic rim illumination and pointer-reactive holographic sheen that catches scene lighting on tilt without heavy video streaming overhead.
             </p>
           </div>
 
           <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-            <div className="text-xs font-mono text-cyan-400 font-bold">03 · OPERATOR HOOKS</div>
-            <h5 className="text-base font-bold text-white">Wired Into Live Edge Runtimes</h5>
+            <div className="text-xs font-mono text-emerald-400 font-bold">03 · RUNTIME HOOKS</div>
+            <h5 className="text-base font-bold text-white">Wired Into Edge Subsystems</h5>
             <p className="text-xs text-slate-400 leading-relaxed font-sans">
-              Not decorative stickers—each mascot controls the 3D WebGL flight stage, drives real-time chapter commentary, and powers the interactive Web Audio arcade mini-game.
+              Every mascot directly interfaces with edge runtimes: steering the 3D WebGL flight stage, driving synthesized Web Audio chimes, and anchoring resident subdomain beacons.
             </p>
           </div>
         </div>

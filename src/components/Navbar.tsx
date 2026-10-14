@@ -32,10 +32,9 @@ export function Navbar({
           className="glass-dock pointer-events-auto h-12 px-4 rounded-full flex items-center gap-3 transition-all hover:scale-[1.02] shadow-xl"
         >
           <div className="flex items-center gap-1.5 font-bold tracking-tight text-sm">
-            <span className="text-white">Craft</span>
-            <span className="text-cyan-400">.</span>
-            <span className="text-xs text-slate-400 font-mono hidden sm:inline">
-              by Anuraag
+            <span className="text-white">Anuraag G Rao</span>
+            <span className="text-xs text-cyan-400 font-mono hidden sm:inline">
+              / craft
             </span>
           </div>
           <div className="h-4 w-px bg-white/10 hidden sm:block" />
@@ -53,7 +52,7 @@ export function Navbar({
             className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider text-cyan-400 hover:text-cyan-300 hover:bg-cyan-500/10 flex items-center gap-1.5 transition-all"
           >
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Companions Lab</span>
+            <span>Companions</span>
           </Link>
           <a
             href="#case-studies"
@@ -68,11 +67,11 @@ export function Navbar({
             Systems
           </a>
           <a
-            href="#sanctuary"
+            href="#arcade"
             className="px-3.5 py-1.5 rounded-full text-xs font-mono uppercase tracking-wider text-violet-400 hover:text-violet-300 hover:bg-violet-500/10 flex items-center gap-1.5 transition-all"
           >
             <Gamepad2 className="w-3.5 h-3.5" />
-            <span>Player 1</span>
+            <span>Arcade</span>
           </a>
           <a
             href="#contact"

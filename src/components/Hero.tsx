@@ -53,7 +53,7 @@ export default function Hero({ companion, onSelectCompanion }: HeroProps) {
             <h1 className="text-5xl sm:text-7xl xl:text-8xl font-extrabold tracking-[-0.04em] text-white leading-[0.95] uppercase select-none">
               ANURAAG <br />
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-slate-100 via-slate-300 to-slate-500">
-                G. RAO
+                G RAO
               </span>
             </h1>
           </div>
@@ -88,11 +88,11 @@ export default function Hero({ companion, onSelectCompanion }: HeroProps) {
               <ArrowRight className="w-3.5 h-3.5" />
             </a>
             <a
-              href="#sanctuary"
+              href="#arcade"
               className="px-6 py-3 rounded-2xl glass-dock text-slate-200 font-semibold text-xs uppercase tracking-wider hover:text-white flex items-center gap-2 hover:bg-white/10 transition-all"
             >
               <Gamepad2 className="w-3.5 h-3.5 text-violet-400" />
-              <span>Player 1 Sanctuary</span>
+              <span>Arcade Playground</span>
             </a>
           </div>
         </div>

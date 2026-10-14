@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Craft Studio · Anuraag G. Rao | Systems Architect & Creative Technologist",
+  title: "Craft Studio · Anuraag G Rao | Systems Architect & Creative Technologist",
   description: "Systems Architect & Creative Technologist in Bangalore. High-throughput edge infrastructure, zero-server privacy utilities, and tactile 60 FPS interfaces.",
   keywords: ["Anuraag G Rao", "Craft Studio", "Systems Architect", "Edge Computing", "Cloudflare Workers", "Web Crypto", "Creative Technologist", "Bangalore"],
-  authors: [{ name: "Anuraag G. Rao", url: "https://anuraaggrao.com" }],
+  authors: [{ name: "Anuraag G Rao", url: "https://anuraaggrao.com" }],
   icons: {
     icon: "/favicon.ico",
   },

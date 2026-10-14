@@ -47,9 +47,10 @@ export function CompanionGuide({ companion, onSelectCompanion }: CompanionGuideP
         }
         return "Sub-15ms edge compute across 300+ global nodes. Cold starts don't exist here.";
 
+      case "arcade":
       case "sanctuary":
         if (companion.id === "mochi") {
-          return "Catch the falling yuzu. Breathe in, breathe out, keep your combo smooth.";
+          return "Catch the falling citrus. Breathe in, breathe out, keep your combo smooth.";
         }
         if (companion.id === "kai") {
           return "Arcade stage! Let's see if you can break 300 points before an orb drops!";

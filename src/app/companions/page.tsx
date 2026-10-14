@@ -349,51 +349,51 @@ export default function CompanionsShowcasePage() {
           </div>
         </div>
 
-        {/* Section 2: Case Study 00 - Genesis & Engineering Pipeline (Inspired by Emmanuel Wilson's Story.tsx) */}
+        {/* Section 2: The Operator Atelier - Original Engineering Breakdown */}
         <div className="pt-16 border-t border-white/[0.08] space-y-12">
           <div className="max-w-3xl space-y-3">
             <div className="inline-flex items-center gap-2 text-xs font-mono text-cyan-400 uppercase tracking-widest">
               <Terminal className="w-4 h-4" />
-              <span>CASE STUDY 00 · THE ANIMAL OPERATORS</span>
+              <span>THE OPERATOR ATELIER · COMPANION CODEX</span>
             </div>
             <h2 className="text-3xl sm:text-5xl font-extrabold uppercase text-white tracking-tight">
-              They aren&apos;t just 3D models.
+              Forging Identity Into Edge Systems.
             </h2>
             <p className="text-slate-400 text-sm sm:text-base font-sans leading-relaxed">
-              In a digital landscape filled with generic corporate human avatars, we built three high-fidelity animal companions to anchor the entire ecosystem. Here is how they were engineered from raw vision to edge runtime.
+              Most engineering portfolios hide behind sterile corporate sans-serif and generic stock headshots. We wanted living companions with tactile weight, distinct doctrines, and real-time client interaction. Here is how they were engineered from raw vision to edge runtime.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-cyan-400 font-bold">01 · ARCHETYPE</div>
-              <h3 className="text-base font-bold text-white">Beloved Animals</h3>
+              <div className="text-xs font-mono text-cyan-400 font-bold">01 · DUAL-LAYER IDENTITY</div>
+              <h3 className="text-base font-bold text-white">Defined Doctrines</h3>
               <p className="text-xs text-slate-400 font-sans leading-relaxed">
-                Rather than human portraits, we selected iconic animal personalities: a cyber panda architect, an unhurried onsen capybara, and an overclocked gamer fox.
+                Not decorative mascots. Each companion has an explicit systems domain, tactical gear loadout, and philosophical mantra that actively controls the resident beacon widgets across our production subdomains.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-violet-400 font-bold">02 · VOLUMETRICS</div>
-              <h3 className="text-base font-bold text-white">Overwatch Aesthetic</h3>
+              <div className="text-xs font-mono text-violet-400 font-bold">02 · TACTILE 3D ROTATION</div>
+              <h3 className="text-base font-bold text-white">Full 360° Turntable</h3>
               <p className="text-xs text-slate-400 font-sans leading-relaxed">
-                Generated with custom neural diffusion pipelines focusing on tactile streetwear, cinematic rim illumination, and Overwatch-tier shader volumetrics.
+                Interactive horizontal drag physics, azimuth compass angle telemetry, and cursor-reactive specular foil shimmers that catch ambient scene light without heavy texture downloads.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-emerald-400 font-bold">03 · THREE.JS STAGE</div>
-              <h3 className="text-base font-bold text-white">Scroll Flight Engine</h3>
+              <div className="text-xs font-mono text-emerald-400 font-bold">03 · ZERO-AUDIO ASSETS</div>
+              <h3 className="text-base font-bold text-white">Client Synthesizer</h3>
               <p className="text-xs text-slate-400 font-sans leading-relaxed">
-                Each mascot pairs with a tailored 3D WebGL flight stage that tracks scroll progression across chapters with smooth camera lerping and dynamic chromatic theme shift.
+                Zero MP3 audio bloat. Every chirp, arpeggio, and laser feedback cue is synthesized directly in browser memory using Web Audio API oscillator nodes and exponential gain envelopes.
               </p>
             </div>
 
             <div className="p-6 rounded-2xl glass-card border border-white/10 space-y-3">
-              <div className="text-xs font-mono text-amber-400 font-bold">04 · SYNTHESIS</div>
-              <h3 className="text-base font-bold text-white">Web Audio Chirps</h3>
+              <div className="text-xs font-mono text-amber-400 font-bold">04 · DISTRIBUTED STATE</div>
+              <h3 className="text-base font-bold text-white">Cross-Subdomain Sync</h3>
               <p className="text-xs text-slate-400 font-sans leading-relaxed">
-                Zero MP3 audio bloat. Every chirp and feedback cue is synthesized in real time directly on the client using Web Audio API oscillator nodes.
+                Equipping a companion updates local storage isolates, dynamically tuning the 3D WebGL flight stage chromatic themes, chapter guide commentaries, and beacon telemetry across the portfolio network.
               </p>
             </div>
           </div>
