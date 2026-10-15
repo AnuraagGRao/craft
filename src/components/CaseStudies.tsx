@@ -14,7 +14,7 @@ interface CaseStudiesProps {
 export function CaseStudies({ companion }: CaseStudiesProps) {
   const [activeCategory, setActiveCategory] = useState<string>("All");
 
-  const categories = ["All", "Developer Tools & Cryptography", "Distributed Edge Infrastructure", "Audio DSP & WebGL Canvas", "Game Physics & Interaction", "DevOps & Infrastructure Observability"];
+  const categories = ["All", ...Array.from(new Set(CASE_STUDIES.map((s) => s.category)))];
 
   const filteredStudies = activeCategory === "All"
     ? CASE_STUDIES
@@ -23,7 +23,7 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
   return (
     <section id="case-studies" data-chapter="case-studies" className="relative py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto scroll-mt-20">
       {/* Section Header */}
-      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
         <div className="space-y-3">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-xs font-mono text-cyan-400">
             <Cpu className="w-3.5 h-3.5" />
@@ -33,7 +33,7 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
             ENGINEERED TO <span className="text-cyan-400">SCALE</span>
           </h2>
           <p className="text-sm sm:text-base text-slate-400 font-mono max-w-2xl leading-relaxed">
-            Deconstructing five production platforms engineered for maximum throughput, zero-leak privacy, and sub-15ms edge compute.
+            Deconstructing {CASE_STUDIES.length} production-grade platforms engineered for maximum throughput, zero-leak privacy, and sub-15ms edge compute.
           </p>
         </div>
 
@@ -43,15 +43,49 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
           <div className="text-xs">
             <span className="font-semibold text-slate-200 block">{companion.name}&apos;s Note:</span>
             <span className="text-slate-400 font-mono">
-              &quot;All 5 are live subdomains. No mockups, no vaporware.&quot;
+              &quot;All {CASE_STUDIES.length} are live production engines. No mockups, no vaporware.&quot;
             </span>
           </div>
         </div>
       </div>
 
+      {/* Category Filter Pills */}
+      <div className="flex flex-wrap items-center gap-2 mb-10 pb-4 border-b border-white/10">
+        {categories.map((cat) => {
+          const count = cat === "All" ? CASE_STUDIES.length : CASE_STUDIES.filter((s) => s.category === cat).length;
+          const isActive = activeCategory === cat;
+          return (
+            <button
+              key={cat}
+              onClick={() => setActiveCategory(cat)}
+              className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all flex items-center gap-1.5 cursor-pointer ${
+                isActive
+                  ? "bg-cyan-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/25 scale-105"
+                  : "bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10"
+              }`}
+            >
+              <span>{cat}</span>
+              <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${
+                isActive ? "bg-slate-900/40 text-cyan-200 font-semibold" : "bg-white/10 text-slate-400"
+              }`}>
+                {count}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
       {/* Case Studies Grid */}
       <div className="space-y-8">
         {filteredStudies.map((study, idx) => {
+          const hostname = (() => {
+            try {
+              return new URL(study.url).hostname;
+            } catch {
+              return study.url.replace(/^https?:\/\//, "");
+            }
+          })();
+
           return (
             <div
               key={study.id}
@@ -68,7 +102,7 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
                 <div className="lg:col-span-7 space-y-5">
                   <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs font-mono">
                     <span className="px-2.5 py-1 rounded-md bg-white/10 text-slate-300 font-medium">
-                      0{idx + 1}
+                      {String(idx + 1).padStart(2, "0")}
                     </span>
                     <span className="px-2.5 py-1 rounded-md bg-cyan-500/10 text-cyan-300 border border-cyan-500/20">
                       {study.category}
@@ -133,7 +167,7 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
                     <div className="flex items-center justify-between border-b border-white/10 pb-2 text-[10px] uppercase tracking-wider">
                       <div className="flex items-center gap-1.5 text-slate-400">
                         <Terminal className="w-3 h-3 text-cyan-400" />
-                        <span>edge-probe://{new URL(study.url).hostname}</span>
+                        <span>edge-probe://{hostname}</span>
                       </div>
                       <span className="text-emerald-400">HTTP 200 OK</span>
                     </div>
@@ -164,7 +198,7 @@ export function CaseStudies({ companion }: CaseStudiesProps) {
                     rel="noopener noreferrer"
                     className="w-full py-4 px-6 rounded-2xl bg-gradient-to-r from-cyan-500 to-sky-500 hover:from-cyan-400 hover:to-sky-400 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 transition-all shadow-xl hover:shadow-cyan-500/25 group-hover:scale-[1.02]"
                   >
-                    <span>Launch Live Subdomain</span>
+                    <span>Launch Live Platform</span>
                     <ArrowUpRight className="w-4 h-4" />
                   </a>
                 </div>

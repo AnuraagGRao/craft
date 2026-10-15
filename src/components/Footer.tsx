@@ -39,9 +39,14 @@ export function Footer({ companion }: FooterProps) {
   const platforms = [
     { name: "Developer Utilities", domain: "utils.anuraaggrao.com", url: "https://utils.anuraaggrao.com" },
     { name: "Edge Telemetry", domain: "analytics.anuraaggrao.com", url: "https://analytics.anuraaggrao.com" },
+    { name: "Battery Telemetry", domain: "volt.anuraaggrao.com", url: "https://volt.anuraaggrao.com" },
+    { name: "Adaptive Quiz API", domain: "quiz.anuraaggrao.com", url: "https://quiz.anuraaggrao.com" },
     { name: "Reactive Audio DSP", domain: "music.anuraaggrao.com", url: "https://music.anuraaggrao.com" },
-    { name: "Neon Arcade Engine", domain: "tetris.anuraaggrao.com", url: "https://tetris.anuraaggrao.com" },
+    { name: "Neon Arcade Engine", domain: "tetra.anuraaggrao.com", url: "https://tetra.anuraaggrao.com" },
     { name: "SLA Health Sentinel", domain: "status.anuraaggrao.com", url: "https://status.anuraaggrao.com" },
+    { name: "EpiCountdown Tracker", domain: "countdown.anuraaggrao.com", url: "https://countdown.anuraaggrao.com" },
+    { name: "Tactile Sensory Suite", domain: "fidget.anuraaggrao.com", url: "https://fidget.anuraaggrao.com" },
+    { name: "Main Systems Portal", domain: "anuraaggrao.com", url: "https://anuraaggrao.com" },
   ];
 
   return (

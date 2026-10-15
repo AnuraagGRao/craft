@@ -6,7 +6,7 @@ import {
   Sparkles, ArrowRight, Gamepad2, ShieldCheck, 
   Zap, MessageCircle, Terminal, Flame, RefreshCw
 } from "lucide-react";
-import { Companion, COMPANIONS } from "@/lib/data";
+import { Companion, COMPANIONS, CASE_STUDIES } from "@/lib/data";
 
 interface HeroProps {
   companion: Companion;
@@ -178,9 +178,9 @@ export default function Hero({ companion, onSelectCompanion }: HeroProps) {
       <div className="mt-12 pt-6 border-t border-white/[0.08] flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-400">
         <div className="flex items-center gap-2">
           <span className="px-2 py-0.5 rounded bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 font-bold">
-            CASE STUDIES · 05
+            CASE STUDIES · {String(CASE_STUDIES.length).padStart(2, "0")}
           </span>
-          <span>5 production systems taken apart: utilities, edge analytics, canvas physics &amp; audio DSP.</span>
+          <span>{CASE_STUDIES.length} production systems taken apart: telemetry, backend APIs, edge routing, audio DSP &amp; canvas physics.</span>
         </div>
         <a 
           href="#case-studies"

@@ -34,9 +34,9 @@ export function CompanionGuide({ companion, onSelectCompanion }: CompanionGuideP
           return "Take your time inspecting each system. Uptime is peaceful and steady.";
         }
         if (companion.id === "kai") {
-          return "5 production monsters! Check the 60 FPS canvas loop on Tetris and Audio DSP!";
+          return "Full production roster! Check the 60 FPS canvas loop on Tetra and Audio DSP!";
         }
-        return "5 real-world production beasts below. Note the zero-server crypto tools in utils.";
+        return "Real-world production systems below. Note the zero-server crypto tools in utils and battery telemetry in VoltWatch.";
 
       case "systems":
         if (companion.id === "mochi") {
