@@ -11,11 +11,16 @@ import {
 } from "lucide-react";
 import { COMPANIONS, Companion } from "@/lib/data";
 
-// Dynamically load WebGL Stage on client
+// Dynamically load WebGL Stage and 3D Companion Viewer on client
 const Stage = dynamic(() => import("@/components/Stage").then((m) => m.Stage), { ssr: false });
+const Companion3DViewer = dynamic(
+  () => import("@/components/Companion3DViewer").then((m) => m.Companion3DViewer),
+  { ssr: false }
+);
 
 export default function CompanionsShowcasePage() {
   const [selectedId, setSelectedId] = useState<string>("koji");
+  const [viewMode, setViewMode] = useState<"3d" | "2d">("3d");
   const [isAutoSpinning, setIsAutoSpinning] = useState(true);
   const [rotationAngle, setRotationAngle] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
@@ -34,24 +39,25 @@ export default function CompanionsShowcasePage() {
 
   const companion = COMPANIONS[selectedId] || COMPANIONS.koji;
 
-  // Auto-spin animation loop
+  // Auto-spin animation loop for 2D mode
   useEffect(() => {
-    if (!isAutoSpinning || isDragging) return;
+    if (!isAutoSpinning || isDragging || viewMode !== "2d") return;
     const interval = setInterval(() => {
       setRotationAngle((prev) => (prev + 0.5) % 360);
     }, 16);
     return () => clearInterval(interval);
-  }, [isAutoSpinning, isDragging]);
+  }, [isAutoSpinning, isDragging, viewMode]);
 
-  // Pointer drag for manual 3D turntable spin
+  // Pointer drag for manual 2D turntable spin
   const handlePointerDown = (e: React.PointerEvent<HTMLDivElement>) => {
+    if (viewMode !== "2d") return;
     setIsDragging(true);
     setIsAutoSpinning(false);
     setStartX(e.clientX);
   };
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    if (!isDragging) return;
+    if (!isDragging || viewMode !== "2d") return;
     const deltaX = e.clientX - startX;
     setRotationAngle((prev) => (prev + deltaX * 0.75 + 360) % 360);
     setStartX(e.clientX);
@@ -143,6 +149,33 @@ export default function CompanionsShowcasePage() {
           {/* Left Column: Interactive 3D Turntable (6 cols) */}
           <div className="lg:col-span-6 flex flex-col items-center">
             
+            {/* View Mode Switcher Pill */}
+            <div className="mb-4 p-1 rounded-2xl glass-dock border border-white/15 flex items-center gap-1 text-xs font-mono">
+              <button
+                onClick={() => setViewMode("3d")}
+                className={`px-4 py-1.5 rounded-xl transition-all flex items-center gap-1.5 ${
+                  viewMode === "3d"
+                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>3D WebGL Rig</span>
+              </button>
+
+              <button
+                onClick={() => setViewMode("2d")}
+                className={`px-4 py-1.5 rounded-xl transition-all flex items-center gap-1.5 ${
+                  viewMode === "2d"
+                    ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm"
+                    : "text-slate-400 hover:text-white"
+                }`}
+              >
+                <Eye className="w-3.5 h-3.5" />
+                <span>2D Dossier Art</span>
+              </button>
+            </div>
+
             {/* Turntable Outer Ring & Stage */}
             <div 
               ref={turntableRef}
@@ -150,93 +183,108 @@ export default function CompanionsShowcasePage() {
               onPointerMove={handlePointerMove}
               onPointerUp={handlePointerUp}
               onPointerLeave={handlePointerUp}
-              className="relative w-80 h-[480px] sm:w-[420px] sm:h-[530px] rounded-[36px] p-4 glass-card border border-white/20 shadow-2xl cursor-grab active:cursor-grabbing select-none transition-shadow duration-300"
+              className="relative w-80 h-[480px] sm:w-[420px] sm:h-[530px] rounded-[36px] p-3 glass-card border border-white/20 shadow-2xl select-none transition-shadow duration-300 overflow-hidden"
               style={{
                 borderColor: companion.accentHex + "80",
                 boxShadow: `0 35px 80px -20px ${companion.accentHex}40`,
               }}
-              title="Drag horizontally to spin 360° in 3D"
+              title={viewMode === "3d" ? "Click & Drag to rotate 360° · Click to Hop" : "Drag horizontally to spin in 3D"}
             >
-              {/* Dynamic Specular Shimmer that moves with rotation angle */}
-              <div 
-                className="absolute inset-0 rounded-[36px] pointer-events-none opacity-25 transition-opacity"
-                style={{
-                  background: `linear-gradient(${rotationAngle}deg, rgba(255,255,255,0.4) 0%, transparent 60%)`,
-                }}
-              />
-
-              {/* 3D Turntable Inner Card */}
-              <div 
-                className="relative w-full h-full rounded-[28px] overflow-hidden bg-slate-950 transition-transform duration-75"
-                style={{
-                  transform: `perspective(1000px) rotateY(${tiltX}deg) translateZ(${depthZ}px)`,
-                }}
-              >
-                <Image
-                  src={companion.imageSrc}
-                  alt={companion.name}
-                  fill
-                  priority
-                  className="object-cover"
+              {viewMode === "3d" ? (
+                /* Real-time Procedural Three.js 3D Character Rig */
+                <Companion3DViewer
+                  companion={companion}
+                  onChirp={() => playSynthesizedChirp(companion.id)}
+                  isSpeaking={isSpeaking}
+                  className="w-full h-full"
                 />
-
-                {/* Overhead Holographic Status Pill */}
-                <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
-                  <div className="px-3 py-1 rounded-full glass-dock text-xs font-mono font-bold text-white flex items-center gap-2 border border-white/20">
-                    <span className="text-base">{companion.emoji}</span>
-                    <span>{companion.species}</span>
-                    <span className="text-slate-400 text-[10px]">· 360° SPIN</span>
-                  </div>
-
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      playSynthesizedChirp(companion.id);
+              ) : (
+                /* 2D Dossier Turntable Card */
+                <>
+                  {/* Dynamic Specular Shimmer */}
+                  <div 
+                    className="absolute inset-0 rounded-[36px] pointer-events-none opacity-25 transition-opacity"
+                    style={{
+                      background: `linear-gradient(${rotationAngle}deg, rgba(255,255,255,0.4) 0%, transparent 60%)`,
                     }}
-                    className={`p-2.5 rounded-full glass-dock border border-white/20 text-slate-300 hover:text-white transition-all ${
-                      isSpeaking ? "scale-110 text-cyan-300 ring-2 ring-cyan-400" : ""
-                    }`}
-                    title="Play voice synthesis chirp"
+                  />
+
+                  {/* 3D Turntable Inner Card */}
+                  <div 
+                    className="relative w-full h-full rounded-[28px] overflow-hidden bg-slate-950 transition-transform duration-75"
+                    style={{
+                      transform: `perspective(1000px) rotateY(${tiltX}deg) translateZ(${depthZ}px)`,
+                    }}
                   >
-                    <Volume2 className="w-4 h-4" />
-                  </button>
-                </div>
+                    <Image
+                      src={companion.imageSrc}
+                      alt={companion.name}
+                      fill
+                      priority
+                      className="object-cover"
+                    />
 
-                {/* Turntable Gaze Azimuth HUD */}
-                <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl glass-dock bg-slate-950/85 border border-white/20 z-20 flex items-center justify-between text-xs font-mono">
-                  <div className="flex items-center gap-2 text-cyan-400">
-                    <Compass className="w-4 h-4" />
-                    <span>AZIMUTH: {Math.round(rotationAngle)}°</span>
+                    {/* Overhead Holographic Status Pill */}
+                    <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-20">
+                      <div className="px-3 py-1 rounded-full glass-dock text-xs font-mono font-bold text-white flex items-center gap-2 border border-white/20">
+                        <span className="text-base">{companion.emoji}</span>
+                        <span>{companion.species}</span>
+                        <span className="text-slate-400 text-[10px]">· 360° SPIN</span>
+                      </div>
+
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          playSynthesizedChirp(companion.id);
+                        }}
+                        className={`p-2.5 rounded-full glass-dock border border-white/20 text-slate-300 hover:text-white transition-all ${
+                          isSpeaking ? "scale-110 text-cyan-300 ring-2 ring-cyan-400" : ""
+                        }`}
+                        title="Play voice synthesis chirp"
+                      >
+                        <Volume2 className="w-4 h-4" />
+                      </button>
+                    </div>
+
+                    {/* Turntable Gaze Azimuth HUD */}
+                    <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl glass-dock bg-slate-950/85 border border-white/20 z-20 flex items-center justify-between text-xs font-mono">
+                      <div className="flex items-center gap-2 text-cyan-400">
+                        <Compass className="w-4 h-4" />
+                        <span>AZIMUTH: {Math.round(rotationAngle)}°</span>
+                      </div>
+                      <span className="text-slate-400 text-[10px]">DRAG TO ROTATE</span>
+                    </div>
                   </div>
-                  <span className="text-slate-400 text-[10px]">DRAG TO ROTATE</span>
-                </div>
+                </>
+              )}
+            </div>
+
+            {/* Turntable Controls Bar (in 2D mode) */}
+            {viewMode === "2d" && (
+              <div className="mt-6 flex items-center gap-3 p-2 rounded-2xl glass-dock border border-white/15">
+                <button
+                  onClick={() => setIsAutoSpinning(!isAutoSpinning)}
+                  className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono transition-all ${
+                    isAutoSpinning ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" : "text-slate-400 hover:text-white"
+                  }`}
+                >
+                  {isAutoSpinning ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                  <span>{isAutoSpinning ? "Pause Auto-Spin" : "Auto-Spin 360°"}</span>
+                </button>
+
+                <button
+                  onClick={() => setRotationAngle(0)}
+                  className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white hover:bg-white/5 transition-all"
+                  title="Reset angle to 0°"
+                >
+                  <RotateCw className="w-3.5 h-3.5" />
+                  <span>Reset View</span>
+                </button>
               </div>
-            </div>
-
-            {/* Turntable Controls Bar */}
-            <div className="mt-6 flex items-center gap-3 p-2 rounded-2xl glass-dock border border-white/15">
-              <button
-                onClick={() => setIsAutoSpinning(!isAutoSpinning)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-mono transition-all ${
-                  isAutoSpinning ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40" : "text-slate-400 hover:text-white"
-                }`}
-              >
-                {isAutoSpinning ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
-                <span>{isAutoSpinning ? "Pause Auto-Spin" : "Auto-Spin 360°"}</span>
-              </button>
-
-              <button
-                onClick={() => setRotationAngle(0)}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-mono text-slate-400 hover:text-white hover:bg-white/5 transition-all"
-                title="Reset angle to 0°"
-              >
-                <RotateCw className="w-3.5 h-3.5" />
-                <span>Reset View</span>
-              </button>
-            </div>
+            )}
 
             {/* Roster Character Selection Pills */}
-            <div className="mt-4 flex items-center gap-3">
+            <div className="mt-6 flex items-center gap-3">
               {Object.values(COMPANIONS).map((c) => {
                 const isSelected = c.id === selectedId;
                 return (

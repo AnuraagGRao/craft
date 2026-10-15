@@ -3,11 +3,17 @@
 import { useState, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import { 
   Sparkles, Shield, Cpu, Zap, Volume2, 
-  ArrowRight, CheckCircle2, Award, Terminal, Eye, RotateCw
+  ArrowRight, CheckCircle2, Award, Terminal, Eye, RotateCw, Layers
 } from "lucide-react";
 import { Companion, COMPANIONS } from "@/lib/data";
+
+const Companion3DViewer = dynamic(
+  () => import("@/components/Companion3DViewer").then((m) => m.Companion3DViewer),
+  { ssr: false }
+);
 
 interface MascotShowcaseProps {
   activeCompanion: Companion;
@@ -19,6 +25,7 @@ export function MascotShowcase({
   onSelectCompanion,
 }: MascotShowcaseProps) {
   const [inspectingId, setInspectingId] = useState<string>(activeCompanion.id);
+  const [viewMode, setViewMode] = useState<"3d" | "2d">("3d");
   const [mouseTilt, setMouseTilt] = useState({ x: 0, y: 0, shineX: 50, shineY: 50 });
   const [isSpeaking, setIsSpeaking] = useState(false);
   const audioCtxRef = useRef<AudioContext | null>(null);
@@ -104,67 +111,107 @@ export function MascotShowcase({
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         {/* Left Column: Interactive 3D Holographic Card (5 cols) */}
         <div className="lg:col-span-5 flex flex-col items-center">
+          {/* View Mode Switcher Pill */}
+          <div className="mb-4 p-1 rounded-2xl glass-dock border border-white/15 flex items-center gap-1 text-xs font-mono">
+            <button
+              onClick={() => setViewMode("3d")}
+              className={`px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1.5 ${
+                viewMode === "3d"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm font-semibold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              <Layers className="w-3.5 h-3.5" />
+              <span>3D WebGL</span>
+            </button>
+
+            <button
+              onClick={() => setViewMode("2d")}
+              className={`px-3.5 py-1.5 rounded-xl transition-all flex items-center gap-1.5 ${
+                viewMode === "2d"
+                  ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 shadow-sm font-semibold"
+                  : "text-slate-400 hover:text-white"
+              }`}
+            >
+              <Eye className="w-3.5 h-3.5" />
+              <span>2D Dossier</span>
+            </button>
+          </div>
+
           {/* Card Container with Perspective Tilt */}
           <div
-            onPointerMove={handlePointerMove}
-            onPointerLeave={handlePointerLeave}
-            className="relative w-80 h-[430px] sm:w-96 sm:h-[480px] rounded-3xl p-3 glass-card border border-white/20 shadow-2xl cursor-pointer group transition-transform duration-150 ease-out select-none"
+            onPointerMove={viewMode === "2d" ? handlePointerMove : undefined}
+            onPointerLeave={viewMode === "2d" ? handlePointerLeave : undefined}
+            className="relative w-80 h-[430px] sm:w-96 sm:h-[480px] rounded-3xl p-3 glass-card border border-white/20 shadow-2xl overflow-hidden select-none"
             style={{
-              transform: `perspective(1000px) rotateX(${mouseTilt.x}deg) rotateY(${mouseTilt.y}deg)`,
+              transform: viewMode === "2d" ? `perspective(1000px) rotateX(${mouseTilt.x}deg) rotateY(${mouseTilt.y}deg)` : undefined,
               borderColor: inspectedCompanion.accentHex + "60",
               boxShadow: `0 25px 60px -15px ${inspectedCompanion.accentHex}35`,
             }}
-            onClick={playVoiceChirp}
-            title="Click to hear companion voice line"
+            title={viewMode === "3d" ? "Click & Drag in 3D · Click to hop" : "Click to hear companion voice line"}
           >
-            {/* Holographic foil shimmer */}
-            <div
-              className="absolute inset-0 rounded-3xl pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity z-20"
-              style={{
-                background: `radial-gradient(circle at ${mouseTilt.shineX}% ${mouseTilt.shineY}%, rgba(255,255,255,0.8) 0%, transparent 60%)`,
-              }}
-            />
-
-            {/* Mascot Image */}
-            <div className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-950">
-              <Image
-                src={inspectedCompanion.imageSrc}
-                alt={inspectedCompanion.name}
-                fill
-                priority
-                className="object-cover group-hover:scale-105 transition-transform duration-500"
+            {viewMode === "3d" ? (
+              <Companion3DViewer
+                companion={inspectedCompanion}
+                onChirp={playVoiceChirp}
+                isSpeaking={isSpeaking}
+                className="w-full h-full"
               />
-
-              {/* Top Status Badges */}
-              <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-                <div className="px-3 py-1 rounded-full glass-dock text-[11px] font-mono font-bold text-white flex items-center gap-1.5 border border-white/15">
-                  <span className="text-base">{inspectedCompanion.emoji}</span>
-                  <span>{inspectedCompanion.species}</span>
-                </div>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    playVoiceChirp();
+            ) : (
+              <>
+                {/* Holographic foil shimmer */}
+                <div
+                  className="absolute inset-0 rounded-3xl pointer-events-none opacity-20 group-hover:opacity-40 transition-opacity z-20"
+                  style={{
+                    background: `radial-gradient(circle at ${mouseTilt.shineX}% ${mouseTilt.shineY}%, rgba(255,255,255,0.8) 0%, transparent 60%)`,
                   }}
-                  className={`p-2 rounded-full glass-dock border border-white/15 text-slate-300 hover:text-white transition-all ${
-                    isSpeaking ? "scale-110 text-cyan-300" : ""
-                  }`}
-                  title="Voice line"
-                >
-                  <Volume2 className="w-4 h-4" />
-                </button>
-              </div>
+                />
 
-              {/* Bottom Quote Strip */}
-              <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl glass-dock bg-slate-950/85 border border-white/15 z-10 space-y-1">
-                <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-semibold">
-                  Mantra
+                {/* Mascot Image */}
+                <div 
+                  className="relative w-full h-full rounded-2xl overflow-hidden bg-slate-950 cursor-pointer"
+                  onClick={playVoiceChirp}
+                >
+                  <Image
+                    src={inspectedCompanion.imageSrc}
+                    alt={inspectedCompanion.name}
+                    fill
+                    priority
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+
+                  {/* Top Status Badges */}
+                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
+                    <div className="px-3 py-1 rounded-full glass-dock text-[11px] font-mono font-bold text-white flex items-center gap-1.5 border border-white/15">
+                      <span className="text-base">{inspectedCompanion.emoji}</span>
+                      <span>{inspectedCompanion.species}</span>
+                    </div>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        playVoiceChirp();
+                      }}
+                      className={`p-2 rounded-full glass-dock border border-white/15 text-slate-300 hover:text-white transition-all ${
+                        isSpeaking ? "scale-110 text-cyan-300" : ""
+                      }`}
+                      title="Voice line"
+                    >
+                      <Volume2 className="w-4 h-4" />
+                    </button>
+                  </div>
+
+                  {/* Bottom Quote Strip */}
+                  <div className="absolute bottom-4 left-4 right-4 p-3.5 rounded-2xl glass-dock bg-slate-950/85 border border-white/15 z-10 space-y-1">
+                    <div className="text-[10px] font-mono text-cyan-400 uppercase tracking-wider font-semibold">
+                      Mantra
+                    </div>
+                    <p className="text-xs font-sans text-slate-100 italic leading-snug">
+                      &ldquo;{inspectedCompanion.mantra}&rdquo;
+                    </p>
+                  </div>
                 </div>
-                <p className="text-xs font-sans text-slate-100 italic leading-snug">
-                  &ldquo;{inspectedCompanion.mantra}&rdquo;
-                </p>
-              </div>
-            </div>
+              </>
+            )}
           </div>
 
           {/* Quick Roster Selector Tabs */}
